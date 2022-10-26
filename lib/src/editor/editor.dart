@@ -16,18 +16,19 @@ import 'editor_utils.dart';
 ///
 
 class ExtendedImageEditor extends StatefulWidget {
-  final void Function(Rect?)? rectCallback;
-
   ExtendedImageEditor({
     required this.extendedImageState,
     Key? key,
-    final this.rectCallback,
+    this.rectCallback,
   })  : assert(extendedImageState.imageWidget.fit == BoxFit.contain,
             'Make sure the image is all painted to crop,the fit of image must be BoxFit.contain'),
         assert(extendedImageState.imageWidget.image is ExtendedImageProvider,
             'Make sure the image provider is ExtendedImageProvider, we will get raw image data from it'),
         super(key: key);
   final ExtendedImageState extendedImageState;
+
+  final void Function(Rect?)? rectCallback;
+
   @override
   ExtendedImageEditorState createState() => ExtendedImageEditorState();
 }
