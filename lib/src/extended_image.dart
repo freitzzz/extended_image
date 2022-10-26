@@ -44,6 +44,7 @@ class ExtendedImage extends StatefulWidget {
     this.enableMemoryCache = true,
     this.clearMemoryCacheIfFailed = true,
     this.onDoubleTap,
+    this.rectCallback,
     this.initGestureConfigHandler,
     this.enableSlideOutPage = false,
     BoxConstraints? constraints,
@@ -226,6 +227,7 @@ class ExtendedImage extends StatefulWidget {
     this.heroBuilderForSlidingPage,
     this.clearMemoryCacheWhenDispose = false,
     this.extendedImageGestureKey,
+    this.rectCallback,
     int? cacheWidth,
     int? cacheHeight,
     this.isAntiAlias = false,
@@ -322,6 +324,7 @@ class ExtendedImage extends StatefulWidget {
     this.heroBuilderForSlidingPage,
     this.clearMemoryCacheWhenDispose = false,
     this.extendedImageGestureKey,
+    this.rectCallback,
     int? cacheWidth,
     int? cacheHeight,
     this.isAntiAlias = false,
@@ -412,6 +415,7 @@ class ExtendedImage extends StatefulWidget {
     this.heroBuilderForSlidingPage,
     this.clearMemoryCacheWhenDispose = false,
     this.extendedImageGestureKey,
+    this.rectCallback,
     int? cacheWidth,
     int? cacheHeight,
     this.isAntiAlias = false,
@@ -487,6 +491,7 @@ class ExtendedImage extends StatefulWidget {
     this.clearMemoryCacheWhenDispose = false,
     this.handleLoadingProgress = false,
     this.extendedImageGestureKey,
+    this.rectCallback,
     int? cacheWidth,
     int? cacheHeight,
     this.isAntiAlias = false,
@@ -548,6 +553,8 @@ class ExtendedImage extends StatefulWidget {
 
   /// key of ExtendedImageEditor
   final Key? extendedImageEditorKey;
+
+  final void Function(Rect?)? rectCallback;
 
   /// whether enable slide out page
   /// you should make sure this is in [ExtendedImageSlidePage]
@@ -1139,6 +1146,7 @@ class _ExtendedImageState extends State<ExtendedImage>
       current = ExtendedImageEditor(
         extendedImageState: this,
         key: widget.extendedImageEditorKey,
+        rectCallback: widget.rectCallback,
       );
     } else {
       current = _buildExtendedRawImage();
