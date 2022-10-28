@@ -26,6 +26,7 @@ class ExtendedImage extends StatefulWidget {
     this.excludeFromSemantics = false,
     this.width,
     this.height,
+    this.rectCallback,
     this.color,
     this.colorBlendMode,
     this.fit,
@@ -70,6 +71,7 @@ class ExtendedImage extends StatefulWidget {
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
+    this.rectCallback,
     this.height,
     this.color,
     this.colorBlendMode,
@@ -173,6 +175,7 @@ class ExtendedImage extends StatefulWidget {
     this.excludeFromSemantics = false,
     this.width,
     this.height,
+    this.rectCallback,
     this.color,
     this.colorBlendMode,
     this.fit,
@@ -364,6 +367,7 @@ class ExtendedImage extends StatefulWidget {
     this.width,
     this.height,
     this.color,
+    this.rectCallback,
     this.colorBlendMode,
     this.fit,
     this.alignment = Alignment.center,
@@ -453,6 +457,7 @@ class ExtendedImage extends StatefulWidget {
     this.width,
     this.height,
     this.color,
+    this.rectCallback,
     this.colorBlendMode,
     this.fit,
     this.alignment = Alignment.center,
@@ -730,6 +735,8 @@ class ExtendedImage extends StatefulWidget {
   ///
   /// Anti-aliasing alleviates the sawtooth artifact when the image is rotated.
   final bool isAntiAlias;
+
+  final void Function(Rect?)? rectCallback;
 
   @override
   _ExtendedImageState createState() => _ExtendedImageState();
@@ -1108,6 +1115,7 @@ class _ExtendedImageState extends State<ExtendedImage>
       current = ExtendedImageEditor(
         extendedImageState: this,
         key: widget.extendedImageEditorKey,
+        rectCallback: widget.rectCallback,
       );
     } else {
       current = _buildExtendedRawImage();

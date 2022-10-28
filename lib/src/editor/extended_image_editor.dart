@@ -17,8 +17,13 @@ import 'extended_image_editor_utils.dart';
 ///
 
 class ExtendedImageEditor extends StatefulWidget {
-  ExtendedImageEditor({required this.extendedImageState, Key? key})
-      : assert(extendedImageState.imageWidget.fit == BoxFit.contain,
+  final void Function(Rect?)? rectCallback;
+
+  ExtendedImageEditor({
+    required this.extendedImageState,
+    Key? key,
+    final this.rectCallback,
+  })  : assert(extendedImageState.imageWidget.fit == BoxFit.contain,
             'Make sure the image is all painted to crop,the fit of image must be BoxFit.contain'),
         assert(extendedImageState.imageWidget.image is ExtendedImageProvider,
             'Make sure the image provider is ExtendedImageProvider, we will get raw image data from it'),
@@ -171,6 +176,8 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
         _layerKey.currentState?.pointerDown(true);
       },
       onPointerUp: (_) {
+        widget.rectCallback?.call(getCropRect());
+
         _layerKey.currentState?.pointerDown(false);
       },
       onPointerSignal: _handlePointerSignal,
@@ -233,6 +240,8 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
     totalScale = min(totalScale, _editorConfig!.maxScale);
 
     if (mounted && (scaleDelta != 1.0 || delta != Offset.zero)) {
+      widget.rectCallback?.call(getCropRect());
+
       setState(() {
         _editActionDetails!.totalScale = totalScale;
 
